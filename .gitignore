@@ -1,0 +1,8 @@
+# Local agent state and skills
+/.pi/
+/.agents/
+
+# Hugo-generated output and image cache
+/public/
+/resources/
+/.hugo_build.lock
