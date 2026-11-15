@@ -1,0 +1,18 @@
+<section class="home-landing" aria-labelledby="home-name">
+  <div class="home-identity">
+    <h1 id="home-name" class="home-name" tabindex="0">
+      <span class="sr-only">Max D. Swain</span>
+      <span class="home-wordmark identity-wordmark" aria-hidden="true">
+        {{ partial "identity/letters.html" (dict "home" true) }}
+      </span>
+    </h1>
+    <nav class="home-nav" aria-label="{{ i18n "nav.main_menu" }}">
+      {{ range .Site.Menus.main }}
+        <a href="{{ .URL }}">{{ .Name }}</a>
+      {{ end }}
+    </nav>
+    <div class="home-socials">
+      {{ partial "author-links.html" . }}
+    </div>
+  </div>
+</section>

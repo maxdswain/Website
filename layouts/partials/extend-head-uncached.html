@@ -1,0 +1,6 @@
+{{ $identityCSS := resources.Get "css/identity.css" | resources.Minify | resources.Fingerprint "sha512" }}
+<link rel="stylesheet" href="{{ $identityCSS.RelPermalink }}" integrity="{{ $identityCSS.Data.Integrity }}">
+{{ if .IsHome }}
+  {{ $homeCSS := resources.Get "css/home.css" | resources.Minify | resources.Fingerprint "sha512" }}
+  <link rel="stylesheet" href="{{ $homeCSS.RelPermalink }}" integrity="{{ $homeCSS.Data.Integrity }}">
+{{ end }}

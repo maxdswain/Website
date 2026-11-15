@@ -1,0 +1,138 @@
+/* Use the available width for the CV without widening other articles. */
+article:has(.cv-leonardo-icon) > #single_header,
+article:has(.cv-leonardo-icon) > section > .min-w-0 {
+  width: 100%;
+  max-width: 56rem;
+  margin-inline: auto;
+}
+
+article:has(.cv-leonardo-icon) .article-content {
+  width: 100%;
+  max-width: none;
+}
+
+article:has(.cv-leonardo-icon) .article-content > .lead {
+  max-width: 48rem;
+}
+
+/* Keep Blowfish's keyword pills readable and consistently spaced on the CV. */
+.cv-skills > h3 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.cv-skills > .flex {
+  gap: 0.5rem;
+}
+
+.cv-skills > .flex > .flex {
+  margin: 0;
+  max-width: 100%;
+}
+
+.cv-skills .rounded-full {
+  padding: 0.375rem 0.75rem;
+  border: 1px solid rgb(0 0 0 / 12%);
+  background: rgb(0 0 0 / 3%);
+  color: inherit;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.dark .cv-skills .rounded-full {
+  border-color: rgb(255 255 255 / 15%);
+  background: rgb(255 255 255 / 5%);
+}
+
+.cv-skills .icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-inline-end: 0.25rem;
+}
+
+.cv-skills .icon svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Give the CV's Blowfish timelines a quieter, more compact presentation. */
+.article-content:has(.cv-leonardo-icon) > ol.border-s-2 {
+  margin: 1.25rem 0 2rem;
+  padding: 0;
+  border: 0;
+}
+
+.article-content:has(.cv-leonardo-icon) > ol.border-s-2 > li {
+  position: relative;
+}
+
+/* Connect adjacent entries, leaving a clear gap above and below each logo. */
+.article-content:has(.cv-leonardo-icon) > ol.border-s-2 > li:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 5rem;
+  bottom: -0.5rem;
+  left: 2.375rem;
+  width: 2px;
+  background: rgba(var(--color-primary-500), 0.45);
+  pointer-events: none;
+}
+
+.dark .article-content:has(.cv-leonardo-icon) > ol.border-s-2 > li:not(:last-child)::after {
+  background: rgba(var(--color-primary-300), 0.4);
+}
+
+.article-content:has(.cv-leonardo-icon) > ol.border-s-2 > li > .flex {
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.article-content:has(.cv-leonardo-icon) > ol.border-s-2 > li > .flex > div:first-child {
+  flex: 0 0 4rem;
+  width: 4rem;
+  height: 4rem;
+  min-width: 4rem;
+  margin: 0.5rem 0 0 !important;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+}
+
+.article-content .cv-leonardo-icon,
+.article-content .cv-lancaster-icon {
+  width: 3rem;
+  height: 3rem;
+}
+
+.article-content:has(.cv-leonardo-icon) > ol.border-s-2 > li > .flex > div:nth-child(2) {
+  min-width: 0;
+  margin: 0 0 1rem !important;
+  padding: 1.25rem;
+  border: 1px solid rgb(0 0 0 / 10%);
+  border-radius: 0.875rem;
+  background: rgb(0 0 0 / 2%);
+  box-shadow: none;
+}
+
+.dark .article-content:has(.cv-leonardo-icon) > ol.border-s-2 > li > .flex > div:nth-child(2) {
+  border-color: rgb(255 255 255 / 10%);
+  background: rgb(255 255 255 / 2%);
+}
+
+.article-content:has(.cv-leonardo-icon) > ol.border-s-2 > li > .flex > div:nth-child(2) > .flex {
+  flex-wrap: wrap;
+  gap: 0.5rem 0.75rem;
+}
+
+.article-content:has(.cv-leonardo-icon) > ol.border-s-2 h3 .rounded-md {
+  border-color: rgb(0 0 0 / 15%);
+  color: #52525b;
+}
+
+.dark .article-content:has(.cv-leonardo-icon) > ol.border-s-2 h3 .rounded-md {
+  border-color: rgb(255 255 255 / 15%);
+  color: #a1a1aa;
+}

@@ -1,0 +1,262 @@
+/* Loaded only on the homepage through Blowfish's extend-head-uncached hook. */
+body {
+  height: auto;
+  min-height: 100svh;
+}
+
+body > .relative {
+  min-height: 100svh;
+}
+
+/* Keep the theme's appearance control, without a duplicate navigation bar. */
+body > header {
+  position: absolute;
+  top: 1rem;
+  right: clamp(1.5rem, 4vw, 3rem);
+  z-index: 10;
+}
+
+.main-menu > a,
+.main-menu nav > a,
+#search-button,
+#search-button-mobile,
+label[for="mobile-menu-toggle"],
+#mobile-menu-dialog,
+#scroll-to-top {
+  display: none;
+}
+
+#appearance-switcher,
+#appearance-switcher-mobile {
+  width: 2.75rem;
+  height: 2.75rem;
+}
+
+#main-content {
+  display: grid;
+  place-items: center;
+}
+
+/* The theme's unused recent-articles container should not create a grid row. */
+#main-content > section:not(.home-landing) {
+  display: none;
+}
+
+.home-landing {
+  width: 100%;
+  padding-block: 6rem;
+  text-align: center;
+}
+
+.home-identity {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 100%;
+}
+
+.home-name {
+  position: relative;
+  width: 2.85em;
+  height: clamp(6.6rem, 18vw, 12rem);
+  margin: 0;
+  font-family: "Bodoni MT", "Didot", "Times New Roman", serif;
+  font-size: clamp(2rem, 6.7vw, 5.75rem);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.045em;
+}
+
+/* Typeset the complete name once. Only individual glyph transforms/opacity
+   animate; neither the layout nor the monogram's hover target changes size. */
+.home-wordmark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: max-content;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+
+.home-initial {
+  position: relative;
+  transform: translateX(var(--closed-x));
+  transition: transform 650ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Keep scaling inside the shared glyph: navigation can then size all letters
+   consistently while the lowercase initial fades into its capital. */
+.home-initial-shape {
+  display: block;
+  position: relative;
+  transform-origin: left center;
+  transform: scale(1.85);
+  transition: transform 650ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.home-initial-m { --closed-x: 1.21em; }
+.home-initial-d { --closed-x: 0.62em; }
+.home-initial-s { --closed-x: 0.37em; }
+
+.home-lower,
+.home-upper {
+  display: block;
+  transition: opacity 220ms ease;
+}
+
+.home-lower {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.home-upper {
+  opacity: 0;
+}
+
+.home-letter {
+  opacity: 0;
+  transform: translateX(var(--closed-letter-x));
+  transition: transform 550ms cubic-bezier(0.22, 1, 0.36, 1), opacity 220ms ease;
+}
+
+/* Hidden letters start beside their initial, rather than crossing it in flight. */
+.home-letter.identity-a1 { --closed-letter-x: 1.31em; }
+.home-letter.identity-x { --closed-letter-x: 1.01em; }
+.home-letter.identity-dot { --closed-letter-x: 0.38em; }
+.home-letter.identity-w { --closed-letter-x: 0.26em; }
+.home-letter.identity-a2 { --closed-letter-x: -0.31em; }
+.home-letter.identity-i { --closed-letter-x: -0.72em; }
+.home-letter.identity-n { --closed-letter-x: -0.9em; }
+
+.home-name:is(:hover, :focus-visible) :is(.home-initial, .home-initial-shape, .home-letter) {
+  transform: none;
+}
+
+.home-name:is(:hover, :focus-visible) .home-lower {
+  opacity: 0;
+}
+
+.home-name:is(:hover, :focus-visible) :is(.home-upper, .home-letter) {
+  opacity: 1;
+}
+
+.home-name:is(:hover, :focus-visible) .home-letter {
+  transition-delay: var(--reveal-delay);
+}
+
+.home-nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: clamp(1.5rem, 5vw, 3.5rem);
+  margin-top: 0.5rem;
+}
+
+.home-nav a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  padding: 0.25rem;
+  color: rgb(var(--color-primary-600));
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-underline-offset: 0.5em;
+  text-decoration-color: transparent;
+  transition: text-decoration-color 200ms ease;
+}
+
+.dark .home-nav a {
+  color: rgb(var(--color-primary-300));
+}
+
+.home-nav a:hover {
+  text-decoration-color: currentColor;
+}
+
+.home-socials > div {
+  justify-content: center;
+}
+
+.home-socials a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  font-size: 1.25rem;
+}
+
+.home-name:focus-visible {
+  outline: none;
+}
+
+.home-name:focus-visible .home-wordmark,
+.home-nav a:focus-visible,
+.home-socials a:focus-visible {
+  outline: 2px solid rgb(var(--color-primary-500));
+  outline-offset: 0.5rem;
+  border-radius: 0.125rem;
+}
+
+#site-footer {
+  padding-block: 1.25rem;
+}
+
+#site-footer nav,
+#site-footer > div {
+  justify-content: center;
+  text-align: center;
+}
+
+#site-footer nav {
+  padding-bottom: 0.5rem;
+}
+
+#site-footer p {
+  font-size: 0.75rem;
+}
+
+/* Touch users get the full name immediately; no hover is required to navigate. */
+@media (hover: none) {
+  .home-name {
+    width: max-content;
+    height: auto;
+  }
+
+  .home-wordmark {
+    position: static;
+    transform: none;
+  }
+
+  .home-initial,
+  .home-initial-shape,
+  .home-letter {
+    transform: none;
+  }
+
+  .home-lower {
+    opacity: 0;
+  }
+
+  .home-upper,
+  .home-letter {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-initial,
+  .home-initial-shape,
+  .home-lower,
+  .home-upper,
+  .home-letter,
+  .home-nav a {
+    transition: none;
+  }
+}

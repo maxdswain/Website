@@ -2,13 +2,14 @@ disabled = false
 locale = "en"
 label = "English"
 weight = 1
-title = "Max Swain - Senior AI Engineer"
+title = "Max D. Swain"
 
 [params]
 displayName = "EN"
 isoCode = "en"
 rtl = false
 dateFormat = "2 January 2006"
+copyright = "© { year } Max Swain · Notes & CV: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) · Site & code examples: [MIT](/licenses/#mit-license)"
 
 [[params.author.links]]
 github = "https://github.com/maxdswain"
@@ -16,6 +17,6 @@ github = "https://github.com/maxdswain"
 [[params.author.links]]
 linkedin = "https://www.linkedin.com/in/maxdswain"
 
-["params.author"]
+[params.author]
 name = "Max Swain"
 headline = "Motivated and passionate engineer with a proven track record of designing, developing, and deploying backend agentic systems end to end. Skilled in scientific computing, data science, full‑stack development, DevOps, CI/CD, and Linux. Experienced in building scalable, production‑grade solutions, optimising performance, and implementing robust testing pipelines."

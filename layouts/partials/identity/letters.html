@@ -1,0 +1,28 @@
+{{- $home := .home -}}
+{{- $letters := slice
+  (dict "key" "m" "text" "M" "lower" "m")
+  (dict "key" "a1" "text" "a" "delay" "60ms")
+  (dict "key" "x" "text" "x" "delay" "100ms")
+  (dict "key" "space" "text" " ")
+  (dict "key" "d" "text" "D" "lower" "d")
+  (dict "key" "dot" "text" "." "delay" "130ms")
+  (dict "key" "space" "text" " ")
+  (dict "key" "s" "text" "S" "lower" "s")
+  (dict "key" "w" "text" "w" "delay" "160ms")
+  (dict "key" "a2" "text" "a" "delay" "200ms")
+  (dict "key" "i" "text" "i" "delay" "240ms")
+  (dict "key" "n" "text" "n" "delay" "280ms")
+-}}
+{{- range $letters -}}
+  {{- if eq .key "space" -}}
+    <span>{{ .text }}</span>
+  {{- else -}}
+    <span class="identity-glyph identity-{{ .key }}{{ if $home }}{{ if .lower }} home-initial home-initial-{{ .key }}{{ else }} home-letter{{ end }}{{ end }}"{{ if and $home .delay }} style="--reveal-delay: {{ .delay }}"{{ end }}>
+      {{- if and $home .lower -}}
+        <span class="home-initial-shape"><span class="home-lower">{{ .lower }}</span><span class="home-upper">{{ .text }}</span></span>
+      {{- else -}}
+        {{- .text -}}
+      {{- end -}}
+    </span>
+  {{- end -}}
+{{- end -}}

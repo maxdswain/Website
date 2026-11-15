@@ -1,0 +1,164 @@
+/* Native, same-origin page transitions: no navigation/animation JavaScript. */
+@view-transition {
+  navigation: auto;
+}
+
+/* Match individual glyphs, not a flattened picture of the whole name. */
+.identity-wordmark {
+  display: flex;
+  white-space: nowrap;
+}
+
+.identity-glyph { display: block; }
+.identity-m { view-transition-name: identity-m; }
+.identity-a1 { view-transition-name: identity-a1; }
+.identity-x { view-transition-name: identity-x; }
+.identity-d { view-transition-name: identity-d; }
+.identity-dot { view-transition-name: identity-dot; }
+.identity-s { view-transition-name: identity-s; }
+.identity-w { view-transition-name: identity-w; }
+.identity-a2 { view-transition-name: identity-a2; }
+.identity-i { view-transition-name: identity-i; }
+.identity-n { view-transition-name: identity-n; }
+
+/* Keep the inner-page header out of the content cross-fade. Its glyphs are
+   separate shared elements, able to unfold while travelling from home. */
+body:not(:has(.home-landing)) > header {
+  view-transition-name: site-header;
+}
+
+/* Reuse Blowfish's header and controls, with the name at the top centre. */
+body:not(:has(.home-landing)) .main-menu {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  row-gap: 0;
+  padding-block: 0.75rem;
+  padding-inline: 0;
+}
+
+body:not(:has(.home-landing)) .main-menu > a {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  justify-self: center;
+  z-index: 1;
+  overflow: visible;
+  padding: 0.1em 0.08em;
+  font-family: "Bodoni MT", "Didot", "Times New Roman", serif;
+  font-size: clamp(1.75rem, 3vw, 2rem);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.045em;
+}
+
+body:not(:has(.home-landing)) .main-menu > .flex {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  justify-content: flex-end;
+  width: 100%;
+  min-width: 0;
+  margin-inline-start: 0;
+}
+
+body:not(:has(.home-landing)) .main-menu > .flex > .hidden,
+body:not(:has(.home-landing)) .main-menu nav {
+  width: 100%;
+}
+
+body:not(:has(.home-landing)) .main-menu nav > div:has(#appearance-switcher) {
+  margin-inline-start: auto;
+}
+
+@media (min-width: 1024px) {
+  body:not(:has(.home-landing)) .main-menu > a {
+    grid-column: 2;
+  }
+
+  body:not(:has(.home-landing)) .main-menu > .flex {
+    grid-row: 1;
+  }
+}
+
+/* Glyphs use the shared defaults; the root and header are the only exceptions.
+   Matching old/new fades keep identical inner-page glyphs steady. */
+::view-transition-group(*) {
+  animation-duration: 950ms;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+::view-transition-group(root),
+::view-transition-group(site-header) {
+  animation-duration: 250ms;
+  animation-timing-function: ease;
+}
+
+::view-transition-old(*) {
+  animation: identity-fade-out 260ms linear both;
+  mix-blend-mode: plus-lighter;
+}
+
+::view-transition-new(*) {
+  animation: identity-fade-in 260ms linear both;
+  mix-blend-mode: plus-lighter;
+}
+
+::view-transition-old(identity-m),
+::view-transition-new(identity-m),
+::view-transition-old(identity-d),
+::view-transition-new(identity-d),
+::view-transition-old(identity-s),
+::view-transition-new(identity-s) { animation-duration: 160ms; }
+
+::view-transition-old(identity-a1),
+::view-transition-new(identity-a1) { animation-delay: 60ms; }
+::view-transition-old(identity-x),
+::view-transition-new(identity-x) { animation-delay: 100ms; }
+::view-transition-old(identity-dot),
+::view-transition-new(identity-dot) { animation-delay: 130ms; }
+::view-transition-old(identity-w),
+::view-transition-new(identity-w) { animation-delay: 160ms; }
+::view-transition-old(identity-a2),
+::view-transition-new(identity-a2) { animation-delay: 200ms; }
+::view-transition-old(identity-i),
+::view-transition-new(identity-i) { animation-delay: 240ms; }
+::view-transition-old(identity-n),
+::view-transition-new(identity-n) { animation-delay: 280ms; }
+
+::view-transition-old(site-header) {
+  animation: none;
+  opacity: 0;
+}
+
+::view-transition-new(site-header) {
+  animation: none;
+  opacity: 1;
+}
+
+::view-transition-old(root) {
+  animation: identity-fade-out 180ms ease both;
+}
+
+::view-transition-new(root) {
+  animation: identity-fade-in 300ms 100ms ease both;
+}
+
+@keyframes identity-fade-out {
+  to { opacity: 0; }
+}
+
+@keyframes identity-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @view-transition {
+    navigation: none;
+  }
+
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none;
+  }
+}
