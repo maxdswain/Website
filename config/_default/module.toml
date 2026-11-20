@@ -1,0 +1,8 @@
+# Keep local layouts and expose the upstream head under an alias for reuse.
+[[mounts]]
+  source = "layouts"
+  target = "layouts"
+
+[[mounts]]
+  source = "themes/blowfish/layouts/partials/head.html"
+  target = "layouts/partials/blowfish/head.html"

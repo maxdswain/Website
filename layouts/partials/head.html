@@ -1,0 +1,4 @@
+{{/* Reuse Blowfish's head, changing only the page-title separators. */}}
+{{- $head := partial "blowfish/head.html" . -}}
+{{- $head = replaceRE `(<title>[^<]*|<meta name="title" content="[^"]*) &middot; ` "${1} | " $head -}}
+{{- $head | safeHTML -}}
