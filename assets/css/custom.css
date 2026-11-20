@@ -72,8 +72,8 @@ article:has(.cv-leonardo-icon) .article-content > .lead {
 .article-content:has(.cv-leonardo-icon) > ol.border-s-2 > li:not(:last-child)::after {
   content: "";
   position: absolute;
-  top: 5rem;
-  bottom: -0.5rem;
+  top: 3.5rem;
+  bottom: 1rem;
   left: 2.375rem;
   width: 2px;
   background: rgba(var(--color-primary-500), 0.45);
@@ -92,9 +92,10 @@ article:has(.cv-leonardo-icon) .article-content > .lead {
 .article-content:has(.cv-leonardo-icon) > ol.border-s-2 > li > .flex > div:first-child {
   flex: 0 0 4rem;
   width: 4rem;
-  height: 4rem;
+  /* Centre the 3rem mark on the title's first 2rem line, even when it wraps. */
+  height: 2rem;
   min-width: 4rem;
-  margin: 0.5rem 0 0 !important;
+  margin: 0 !important;
   border: 0;
   border-radius: 0;
   background: transparent;
@@ -118,6 +119,11 @@ article:has(.cv-leonardo-icon) .article-content > .lead {
 .article-content:has(.cv-leonardo-icon) > ol.border-s-2 > li > .flex > div:nth-child(2) > .flex {
   flex-wrap: wrap;
   gap: 0.5rem 0.75rem;
+}
+
+/* Keep organisation/location lines secondary to role and degree headings. */
+.article-content:has(.cv-leonardo-icon) > ol.border-s-2 h4 {
+  font-weight: 400;
 }
 
 .article-content:has(.cv-leonardo-icon) > ol.border-s-2 h3 .rounded-md {

@@ -30,21 +30,24 @@ Senior AI Engineer building secure, scalable AI platforms and tools that make co
 
 {{< timelineItem header="Senior AI Engineer" subheader="Leonardo · Edinburgh" badge="Apr 2025 – Present" icon="leonardo" md=true >}}
 
-Lead AI architecture and delivery across engineering teams, owning internal AI infrastructure and supporting services.
+Own the internal AI platform and lead its delivery across engineering teams. Work alongside engineers to understand their workflows. Release early versions, then interview both frequent and infrequent users to understand what usage figures alone cannot explain. Guide architecture decisions and mentor engineers through deployment.
 
-- Built a self-hosted GraphRAG chatbot for sensitive documents, with DeepEval regression tests and retrieval evaluation using Haystack NDCG.
-- Built a Go AI gateway for self-hosted and Azure AI Foundry models with enterprise authentication, rate limits and tool permissions, adding **sub-millisecond overhead**.
-- Serve language and embedding models using vLLM and TEI; built multi-agent systems and three multi-user MCP servers. Improved synthetic-data generation by approximately **30×** and signal-processing workflows by **15×**.
-- Coordinate delivery across Azure and on-premises infrastructure using CloudBees, Kubernetes and Argo CD, with automated testing and zero-downtime updates. Provide technical and architectural guidance and mentor engineers.
+- **Model access and permissions.** Built a Go gateway that routes requests to self-hosted models and Azure AI Foundry. It authenticates users, enforces rate limits and controls which tools each user and agent may call, adding **less than a millisecond of gateway overhead**.
+- **Agent tools.** Developed multi-agent systems and built tool-using agents with Pydantic AI, handling tool calls through the OpenAI Responses API. Wrote three multi-user Model Context Protocol (MCP) servers in Go and Python to connect agents to CloudBees and Bitbucket.
+- **Retrieval and evaluation.** Led delivery of a self-hosted GraphRAG chatbot that combines semantic retrieval with graph context for sensitive documents. Measured how highly the retriever ranked relevant documents using Haystack’s NDCG metric. Used DeepEval regression tests and custom evaluations to check agent behaviour as prompts changed.
+- **Inference.** Served language, vision-language, embedding, entity extraction and decision models using vLLM and Text Embeddings Inference (TEI). Extended vLLM and tuned serving configurations, including speculative decoding and parallel inference.
+- **Production operations.** Instrumented the gateway and AI services with Prometheus and Grafana; used GlitchTip to trace requests and investigate application errors. Introduced fortnightly releases across Azure and on-premises Kubernetes, with automated checks in CloudBees and rolling, zero-downtime updates through Argo CD.
+- **Engineering workflows.** Built pipelines to extract, clean and join data, increasing synthetic-data generation speed by approximately **30×**. Consolidated signal reading and processing into one installable tool that ran faster than real time and approximately **15×** faster than the previous workflow.
 
 {{< /timelineItem >}}
 
 {{< timelineItem header="AI Engineer" subheader="Leonardo · Edinburgh" badge="Sep 2024 – Mar 2025" icon="leonardo" md=true >}}
 
-- Led the rollout of AI applications to hundreds of internal engineers, serving tens of thousands of requests daily with no downtime during working hours.
-- Built FastAPI services integrated with Elasticsearch, MongoDB and PostgreSQL; improved testing, performance, robustness and scalability.
-- Built high-performance readers for proprietary engineering data and synthetic-data generators for AI training.
-- Owned and administered the AI/ML team's Azure cloud infrastructure and developer workstations used across the business.
+Led the rollout of AI applications to **hundreds of internal engineers**. The applications served tens of thousands of requests a day with no downtime during working hours.
+
+- Served as technical lead for full-stack engineering applications. Built FastAPI services backed by Elasticsearch, MongoDB and PostgreSQL, and improved testing and performance as the applications scaled.
+- Wrote high-performance readers for complex proprietary formats so engineers could process existing datasets. Developed synthetic-data generators for AI training.
+- Owned and administered the AI/ML team’s Azure infrastructure and the developer workstations used by engineers across the business.
 
 {{< /timelineItem >}}
 
@@ -52,19 +55,18 @@ Lead AI architecture and delivery across engineering teams, owning internal AI i
 
 Completed Leonardo’s accelerated 12-month graduate programme within the Global Combat Air Programme Data & AI/ML team.
 
-- Led development of a system to query, process and serve engineering datasets, earning a nomination for the 2024 innovation award.
-- Built readers, processors and ETL pipelines for legacy data in proprietary formats, combining optical, radar and GPS sources to support engineering analysis.
-- Supported, maintained and upgraded AI/ML infrastructure.
+- Led development of a system for querying, processing and serving large engineering datasets. This technical leadership earned a nomination for Leonardo’s 2024 innovation award.
+- Wrote readers and processors for legacy formats and built extraction, transformation and loading (ETL) pipelines. Combined optical, radar and GPS records so engineers could analyse the sources together.
+- Supported the team’s AI/ML infrastructure, maintaining and upgrading the systems used for engineering work.
 
 {{< /timelineItem >}}
 
 {{< timelineItem header="Mathematical Physics Research Intern" subheader="Lancaster University · Lancaster" badge="Jul 2022" icon="lancaster" md=true >}}
 
-Worked in a team to build a new purely functional, symbolic programming language in Haskell.
+Co-developed a purely functional language for symbolic mathematics in Haskell, working on its parser and built-in functions.
 
-- Implemented a parser that converts text into the language's Haskell data types.
-- Added arithmetic on numbers and symbols—multiplication, addition, subtraction and exponentiation—alongside symbolic functions including `Type`, `Subs` and `Print`, and support for custom mathematical functions.
-- Used Git for source control and Stack to build and test the language.
+- Implemented the parser that translated text into the Haskell data types used to represent expressions. Implemented arithmetic on both numbers and symbols, including exponentiation.
+- Implemented built-in functions including `Type`, `Subs` and `Print`, and added support for user-defined mathematical functions. Used Git to collaborate on the language and Stack to automate builds and tests.
 
 {{< /timelineItem >}}
 
