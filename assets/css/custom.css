@@ -135,3 +135,37 @@ article:has(.cv-leonardo-icon) .article-content > .lead {
   border-color: rgb(255 255 255 / 15%);
   color: #a1a1aa;
 }
+
+/* Centre the native project cards in a balanced two-column layout. */
+section.grid:has(> .article-link--card img[src*="/project-logos/"]) {
+  max-width: 56rem;
+  margin-inline: auto;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+@media (min-width: 640px) {
+  section.grid:has(> .article-link--card img[src*="/project-logos/"]) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Compact project marks within Blowfish's native cards, rather than banners. */
+.article-link--card .thumbnail_card:has(img[src*="/project-logos/"]) {
+  width: 3.5rem;
+  height: 3.5rem;
+  margin: 1.5rem auto 0;
+}
+
+.article-link--card:has(img[src*="/project-logos/"]) {
+  text-align: center;
+}
+
+.article-link--card img[src*="/project-logos/"] {
+  object-fit: contain;
+}
+
+/* Monochrome marks follow the site's light/dark appearance. */
+.dark .haystack-mark,
+.dark .article-link--card img[src*="/project-logos/"] {
+  filter: invert(1);
+}

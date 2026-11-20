@@ -7,7 +7,7 @@ Technology icons are third-party brand marks, not original site artwork. Their i
 The `skill-*.svg` files below come from [Simple Icons](https://github.com/simple-icons/simple-icons/tree/develop/icons), distributed under [CC0](licences/simple-icons-CC0.txt):
 
 - `python`, `go`, `typescript`, `gnubash`, `c`, `haskell`
-- `vllm`, `haystack`, `modelcontextprotocol`, `pydantic`
+- `vllm`, `modelcontextprotocol`, `pydantic`
 - `linux`, `kubernetes`, `argo`, `prometheus`, `grafana`, `sentry`, `cloudbees`, `jenkins`, `githubactions`
 - `fastapi`, `postgresql`, `mongodb`, `elasticsearch`
 
@@ -27,6 +27,12 @@ Their fills are adapted to `currentColor`. The Azure mark is also used to identi
 The Pydantic family mark identifies Pydantic AI. The combined GlitchTip / Sentry pill uses Sentry's mark to represent the Sentry-compatible monitoring tooling, not a separate GlitchTip logo.
 
 Docker uses Blowfish's bundled Docker icon. GraphRAG and graph databases use its generic `fork` icon, and CI/CD uses `list-check`; these are concept indicators, not official product logos.
+
+## Project card marks
+
+`../project-logos/haystack.svg` uses the official Haystack mark from [deepset's documentation assets](https://github.com/deepset-ai/haystack/blob/main/docs-website/static/img/logo.svg), rendered in black and white with the background tile removed and the symbol's geometry preserved. This is a monochrome adaptation of the official artwork, not a separately sourced brand variant. `skill-haystack.svg` uses the same artwork, with decorative accessibility attributes and inline fills to avoid CSS collisions. Haystack's trademark remains with deepset; use identifies the project and does not imply endorsement.
+
+The GLiNER model/decision-routing symbol, terminal and token symbols in `../project-logos/` are original site artwork under the site's MIT licence. They identify project capabilities, not official GLiNER, MCP or Splintr brand marks. No artwork is copied from the design reference. All project marks have transparent backgrounds, are black and white, and are inverted in dark mode.
 
 ## Organisation marks
 
