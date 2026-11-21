@@ -3,7 +3,7 @@
 # https://blowfish.page/docs/getting-started/
 
 theme = "blowfish" # UNCOMMENT THIS LINE
-# baseURL = "https://your_domain.com/"
+baseURL = "https://maxdswain.com/"
 defaultContentLanguage = "en"
 
 # pluralizeListTitles = "true" # hugo function useful for non-english languages, find out more in  https://gohugo.io/getting-started/configuration/#pluralizelisttitles
@@ -23,6 +23,10 @@ enableEmoji = true
 
 [imaging]
   anchor = 'Center'
+
+[caches]
+  [caches.images]
+    dir = ':cacheDir/images'
 
 [taxonomies]
   tag = "tags"
