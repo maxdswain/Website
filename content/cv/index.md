@@ -74,19 +74,19 @@ Co-developed a purely functional language for symbolic mathematics in Haskell, w
 
 ## Selected work
 
-### [Haystack (deepset)](https://github.com/deepset-ai/haystack)
+### [Haystack (deepset)]({{< relref "/projects/haystack" >}})
 
 Contributed GraphRAG and FalkorDB text-to-Cypher retrieval, SPLADE sparse embedders and gRPC support for Hugging Face TEI. Built the Gotenberg document converter and improved asynchronous document-store operations and embedding throughput.
 
-### [GLiNER model serving](https://github.com/maxdswain/vllm-gliner)
+### [GLiNER model serving]({{< relref "/projects/gliner-model-serving" >}})
 
 Built vLLM plugins to serve GLiNER on CPUs and GPUs, with a DeBERTa encoder and fused Triton attention. Added GLiNER2.5 Decide endpoints and Haystack components for entity extraction.
 
-### [Code Executor MCP](https://github.com/maxdswain/code-executor-mcp)
+### [Code Executor MCP]({{< relref "/projects/code-executor-mcp" >}})
 
 Built a Go MCP server for stateful Python execution in isolated Docker sandboxes, with session-scoped packages, automatic cleanup and optional gVisor isolation.
 
-### [splintr-go](https://github.com/maxdswain/splintr-go)
+### [splintr-go]({{< relref "/projects/splintr-go" >}})
 
 Created Go bindings for Splintr tokenisation, including parallel batch processing, bundled vocabularies and explicit native-resource cleanup.
 
