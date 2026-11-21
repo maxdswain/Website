@@ -222,7 +222,8 @@ label[for="mobile-menu-toggle"],
   font-size: 0.75rem;
 }
 
-/* Touch users get the full name immediately; no hover is required to navigate. */
+/* On touch screens, unfold the monogram once on page load instead of
+   requiring hover. Keep the expanded name available after the animation. */
 @media (hover: none) {
   .home-name {
     width: max-content;
@@ -234,20 +235,51 @@ label[for="mobile-menu-toggle"],
     transform: none;
   }
 
-  .home-initial,
-  .home-initial-shape,
+  .home-initial {
+    animation: mobile-initial-expand 650ms 200ms both cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .home-initial-shape {
+    animation: mobile-shape-expand 650ms 200ms both cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
   .home-letter {
-    transform: none;
+    animation: mobile-letter-expand 550ms both cubic-bezier(0.22, 1, 0.36, 1);
+    animation-delay: calc(200ms + var(--reveal-delay, 0ms));
   }
 
   .home-lower {
-    opacity: 0;
+    animation: mobile-lower-fade 220ms 200ms both ease;
   }
 
-  .home-upper,
-  .home-letter {
-    opacity: 1;
+  .home-upper {
+    animation: mobile-upper-fade 220ms 200ms both ease;
   }
+}
+
+@keyframes mobile-initial-expand {
+  from { transform: translateX(var(--closed-x)); }
+  to { transform: none; }
+}
+
+@keyframes mobile-shape-expand {
+  from { transform: scale(1.85); }
+  to { transform: none; }
+}
+
+@keyframes mobile-letter-expand {
+  from { opacity: 0; transform: translateX(var(--closed-letter-x)); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes mobile-lower-fade {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes mobile-upper-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -258,5 +290,18 @@ label[for="mobile-menu-toggle"],
   .home-letter,
   .home-nav a {
     transition: none;
+    animation: none;
+  }
+
+  @media (hover: none) {
+    .home-initial,
+    .home-initial-shape,
+    .home-letter {
+      transform: none;
+    }
+
+    .home-lower { opacity: 0; }
+    .home-upper,
+    .home-letter { opacity: 1; }
   }
 }
