@@ -32,6 +32,7 @@ storedLanguageRedirect = true
 
 [header]
 layout = "identity"
+mobileMenuStyle = "dropdown"
 
 [footer]
 showMenu = true

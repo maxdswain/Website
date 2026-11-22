@@ -69,6 +69,45 @@ body:not(:has(.home-landing)) .main-menu nav > div:has(#appearance-switcher) {
   margin-inline-start: auto;
 }
 
+/* On phones the wordmark and controls share the first row. Let the open
+   menu occupy its own row in the header instead of covering the page. */
+@media (width < 768px) {
+  body:not(:has(.home-landing)) .main-menu {
+    grid-template-columns: minmax(0, 1fr) repeat(3, auto);
+    column-gap: 0.25rem;
+  }
+
+  body:not(:has(.home-landing)) .main-menu > a {
+    grid-column: 1;
+    justify-self: start;
+  }
+
+  body:not(:has(.home-landing)) .main-menu > .flex,
+  body:not(:has(.home-landing)) .main-menu .md\:hidden,
+  body:not(:has(.home-landing)) .mobile-header-row {
+    display: contents;
+  }
+
+  body:not(:has(.home-landing)) .mobile-header-row > :is(button, label) {
+    grid-row: 1;
+    min-width: 2.25rem;
+    min-height: 2.75rem;
+  }
+
+  body:not(:has(.home-landing)) #mobile-menu-dialog {
+    display: none;
+    position: relative;
+    inset: auto;
+    grid-row: 2;
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+
+  body:not(:has(.home-landing)) #mobile-menu-toggle:checked ~ #mobile-menu-dialog {
+    display: block;
+  }
+}
+
 @media (min-width: 1024px) {
   body:not(:has(.home-landing)) .main-menu > a {
     grid-column: 2;
