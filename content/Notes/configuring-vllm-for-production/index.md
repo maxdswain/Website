@@ -7,7 +7,7 @@ showHero: true
 heroStyle: logo
 heroIcon: skill-vllm
 ---
-An estimated £1.36 trillion was spent on AI in 2025, of which £748bn (55%) was spent in infractucture.[^gartner] Future forecasts, estimate £3.1 trillion will be spent on AI infrastructure in 2030.[^gartner] This brings the question, what will be ran this infrastructure and how do we utilise the hardware to the greatest extent possible?
+AI spending in 2025 was estimated at £1.36 trillion, of which £748 billion (55%) went towards infrastructure.[^gartner] Future forecasts, estimate £3.1 trillion will be spent on AI infrastructure in 2030.[^gartner] This brings the question, what will be ran this infrastructure and how do we utilise the hardware to the greatest extent possible?
 
 [^gartner]: [Gartner, AI spending forecast](https://www.gartner.com/en/documents/8479345).
 
@@ -29,14 +29,18 @@ docker run --gpus all \
   vllm/vllm-openai:inkling-2-mini thinkingmachines/Inkling-2-Mini \
   --tensor-parallel-size 1 \
   --reasoning-parser inkling \
+  --tool-call-parser inkling \
+  --enable-auto-tool-choice \
   --speculative-config '{"method":"dspark","num_speculative_tokens":7,"draft_sample_method":"probabilistic"}'
 ```
 
 </div>
 
-Focusing on the `vllm/vllm-openai:inkling-2-mini` container image entrypoint, three [engine arguments](https://docs.vllm.ai/en/stable/configuration/engine_args) are passed:
+The command passes the following [engine arguments](https://docs.vllm.ai/en/stable/configuration/engine_args) to vLLM:
 - `--tensor-parallel-size 1` sets the split of individual weight tensors and computations within a model layer across the number of specified GPUs. With the size being one, the model weights sit entirely on a single GPU.
 - `--reasoning-parser inkling` selects the reasoning parser to use for extracting the reasoning content from the model output. This argument is required for any reasoning model.
+- `--tool-call-parser inkling` turns Inkling’s tool-call output into a structured `tool_calls` entry with the tool name and arguments your application needs to execute the call.
+- `--enable-auto-tool-choice` lets Inkling answer directly or request a tool with `tool_choice: "auto"`, avoiding unnecessary tool calls.
 - `--speculative-config '{"method":"dspark","num_speculative_tokens":7,"draft_sample_method":"probabilistic"}'` enables [Speculative Decoding](https://arxiv.org/pdf/2302.01318), which uses a [DSpark](https://arxiv.org/pdf/2607.05147) drafter model to make predictions about future tokens while generating current tokens. These predicted tokens are verified before being accepted resulting in zero loss in output quality, but large reductions in inter-token latency leading to much higher token throughput.
 
 This is a good base setup to work off of, but is just the start of the options present to make vLLM ready for production.
@@ -138,6 +142,8 @@ docker run --gpus all \
   vllm/vllm-openai:inkling-2-mini thinkingmachines/Inkling-2-Mini \
   --tensor-parallel-size 1 \
   --reasoning-parser inkling \
+  --tool-call-parser inkling \
+  --enable-auto-tool-choice \
   --speculative-config '{"method":"dspark","num_speculative_tokens":7,"draft_sample_method":"probabilistic"}' \
   --limit-mm-per-prompt '{"image":4}' \
   --api-server-count 2
@@ -148,7 +154,7 @@ docker run --gpus all \
 > [!TIP] Process images in parallel across GPUs
 > For some multimodal models served across several GPUs, you can use `--mm-encoder-tp-mode data`. Instead of having all the GPUs work on the same image, each GPU processes a different image from the batch. This can help you serve more images per second, at the cost of extra GPU memory. For instance, one model that supports this is [Qwen2.5-VL-7B](https://recipes.vllm.ai/Qwen/Qwen2.5-VL-7B-Instruct).
 
-### ⏱️&ensp;Benchmarking and further scheduler tuning
+### ⏱️&ensp;Benchmarking and parameter tuning
 
 When modifying the arguments given to vLLM, how do we know the impact each option is making in terms of performance? By running benchmarkings, but before doing so ourself, it's instructive to know a few more important parameters that can be varied to improve performance:
 
@@ -166,12 +172,12 @@ For the first run, set `--max-num-batched-tokens 2048`. For the second run, rais
 
 ```bash
 guidellm run \
-  --backend '{"kind":"vllm_python","model":"thinkingmachines/Inkling-2-Mini","vllm_config":{"max_model_len":8192,"max_num_batched_tokens":2048,"max_num_seqs":16}}' \
+  --backend '{"kind":"vllm_python","model":"thinkingmachines/Inkling-2-Mini","vllm_config":{"max_model_len":8192,"max_num_batched_tokens":2048,"max_num_seqs":256}}' \
   --profile kind=sweep \
   --data kind=synthetic_text,prompt_tokens=1024,output_tokens=128 \
   --seed kind=static,value=42 \
   --constraint kind=max_duration,seconds=60 \
-  --output kind=json,path=tokens-2048_seqs-16.json
+  --output kind=json,path=tokens-2048_seqs-256.json
 ```
 
 {{< /tab >}}
@@ -179,12 +185,12 @@ guidellm run \
 
 ```bash
 guidellm run \
-  --backend '{"kind":"vllm_python","model":"thinkingmachines/Inkling-2-Mini","vllm_config":{"max_model_len":8192,"max_num_batched_tokens":8192,"max_num_seqs":16}}' \
+  --backend '{"kind":"vllm_python","model":"thinkingmachines/Inkling-2-Mini","vllm_config":{"max_model_len":8192,"max_num_batched_tokens":8192,"max_num_seqs":256}}' \
   --profile kind=sweep \
   --data kind=synthetic_text,prompt_tokens=1024,output_tokens=128 \
   --seed kind=static,value=42 \
   --constraint kind=max_duration,seconds=60 \
-  --output kind=json,path=tokens-8192_seqs-16.json
+  --output kind=json,path=tokens-8192_seqs-256.json
 ```
 
 {{< /tab >}}
@@ -284,13 +290,15 @@ services:
       - thinkingmachines/Inkling-2-Mini
       - --served-model-name=Inkling-2-mini
       - --reasoning-parser=inkling
+      - --tool-call-parser inkling
+      - --enable-auto-tool-choice
       - '--speculative-config={"method":"dspark","num_speculative_tokens":7,"draft_sample_method":"probabilistic"}'
       - '--limit-mm-per-prompt={"image":4}'
       - --api-server-count=2
       # Start with the first benchmark configuration; tune for your traffic.
       - --max-model-len=8192
       - --max-num-batched-tokens=2048
-      - --max-num-seqs=16
+      - --max-num-seqs=256
       - --kv-cache-dtype=fp8
       - '--structured-outputs-config={"backend":"xgrammar","disable_any_whitespace":true}'
       - --enable-force-include-usage
