@@ -1,18 +1,16 @@
-/* Use the available width for the CV without widening other articles. */
-article:has(.cv-leonardo-icon) > #single_header,
-article:has(.cv-leonardo-icon) > section > .min-w-0 {
-  width: 100%;
-  max-width: 56rem;
-  margin-inline: auto;
-}
-
-article:has(.cv-leonardo-icon) .article-content {
-  width: 100%;
-  max-width: none;
-}
-
 article:has(.cv-leonardo-icon) .article-content > .lead {
   max-width: 48rem;
+}
+
+/* Mute setup lines so each example emphasises the arguments it introduces. */
+.vllm-basic-config .chroma .line:nth-child(-n + 3),
+.vllm-multimodal-config .chroma .line:nth-last-child(n + 3) {
+  color: #626262;
+}
+
+.dark .vllm-basic-config .chroma .line:nth-child(-n + 3),
+.dark .vllm-multimodal-config .chroma .line:nth-last-child(n + 3) {
+  color: #a1a1aa;
 }
 
 /* Keep Blowfish's keyword pills readable and consistently spaced on the CV. */

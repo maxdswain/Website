@@ -1,0 +1,15 @@
+/* Notes and the CV share a column inside the site's responsive gutters. */
+#main-content {
+  width: 100%;
+  max-width: 56rem;
+  margin-inline: auto;
+}
+
+/* Remove Blowfish's narrower prose and fit-content limits on single pages. */
+#main-content > article > #single_header,
+#main-content > article > section > .min-w-0,
+#main-content > article .article-content,
+#main-content > article > footer {
+  width: 100%;
+  max-width: none;
+}

@@ -1,5 +1,12 @@
 {{ $identityCSS := resources.Get "css/identity.css" | resources.Minify | resources.Fingerprint "sha512" }}
 <link rel="stylesheet" href="{{ $identityCSS.RelPermalink }}" integrity="{{ $identityCSS.Data.Integrity }}">
+{{ if or (eq (lower .Section) "notes") (eq .Path "/cv") }}
+  {{ $wideCSS := resources.Get "css/wide-content.css" | resources.Minify | resources.Fingerprint "sha512" }}
+  <link rel="stylesheet" href="{{ $wideCSS.RelPermalink }}" integrity="{{ $wideCSS.Data.Integrity }}">
+  {{ if and .IsPage (eq (lower .Section) "notes") }}
+    <style>#main-content { max-width: 60rem; }</style>
+  {{ end }}
+{{ end }}
 {{ if .IsHome }}
   {{ $homeCSS := resources.Get "css/home.css" | resources.Minify | resources.Fingerprint "sha512" }}
   <link rel="stylesheet" href="{{ $homeCSS.RelPermalink }}" integrity="{{ $homeCSS.Data.Integrity }}">
