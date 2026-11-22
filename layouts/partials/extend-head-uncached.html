@@ -8,6 +8,20 @@
   {{ end }}
 {{ end }}
 {{ if .IsHome }}
+  <script>
+    // Decide before first paint so a returning page never snapshots the monogram.
+    if (matchMedia('(hover: none)').matches) {
+      try {
+        const key = 'mds-home-visited';
+        const firstVisit = !sessionStorage.getItem(key);
+        sessionStorage.setItem(key, '1');
+        if (firstVisit && !document.referrer.startsWith(location.origin + '/')) {
+          document.documentElement.classList.add('home-intro');
+          addEventListener('pagehide', () => document.documentElement.classList.remove('home-intro'), { once: true });
+        }
+      } catch { /* Without session storage, keep the expanded name. */ }
+    }
+  </script>
   {{ $homeCSS := resources.Get "css/home.css" | resources.Minify | resources.Fingerprint "sha512" }}
   <link rel="stylesheet" href="{{ $homeCSS.RelPermalink }}" integrity="{{ $homeCSS.Data.Integrity }}">
 {{ end }}
