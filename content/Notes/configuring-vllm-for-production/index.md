@@ -129,7 +129,7 @@ After explaining these three strategies, you should now have the general gist of
 
 Multimodal models support images, video and audio as inputs. In order to improve the performance of multimodal heavy requests, it's worth understanding that multimodal inputs require significant image processing to turn the compressed media into tensors before being passed to the GPU, meaning the CPU can become the bottleneck. This means that increasing the `--api-server-count` may be beneficial.
 
-Another important best practice, is that in order to make sure an overwhelming number of inputs aren't being sent you can use `--limit-mm-per-prompt '{"image":4,"video":1, "audio": 1}'` to limit the inputs per request.
+Another important best practice, is that in order to make sure an overwhelming number of inputs aren't being sent you can use `--limit-mm-per-prompt '{"image":4,"video":1,"audio":1}'` to limit the inputs per request.
 
 Combining these arguments with [those above](#vllm-basic-config), for [Inkling-2-Mini](https://huggingface.co/thinkingmachines/Inkling-2-Mini) gives us:
 
@@ -281,7 +281,7 @@ services:
               count: 1
               capabilities: [gpu]
     volumes:
-      - ${HOME}/.cache/huggingface:/root/.cache/huggingface
+      - huggingface-cache:/root/.cache/huggingface
       # Optional: mount a secret integer file before enabling watermarking below.
       # - ./vllm-watermark-key:/run/secrets/vllm-watermark-key:ro
     environment:
@@ -290,7 +290,7 @@ services:
       - thinkingmachines/Inkling-2-Mini
       - --served-model-name=Inkling-2-mini
       - --reasoning-parser=inkling
-      - --tool-call-parser inkling
+      - --tool-call-parser=inkling
       - --enable-auto-tool-choice
       - '--speculative-config={"method":"dspark","num_speculative_tokens":7,"draft_sample_method":"probabilistic"}'
       - '--limit-mm-per-prompt={"image":4}'
@@ -305,6 +305,8 @@ services:
       - --kv-cache-metrics
       # Optional: uncomment together with the key mount above.
       # - '--watermark-config={"algorithm":"dual_key_gumbel","key_file":"/run/secrets/vllm-watermark-key"}'
+volumes:
+  huggingface-cache:
 ```
 
 {{< /tab >}}
